@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techoidu.entities.Person;
+import com.techoidu.data.vo.v1.PersonVO;
+import com.techoidu.data.vo.v1.v2.PersonVOV2;
 import com.techoidu.services.PersonService;
 
 @RestController
@@ -24,22 +25,27 @@ public class PersonController {
 	private PersonService service;
 
 	@GetMapping()
-	public List<Person> findAll() throws Exception {
+	public List<PersonVO > findAll() throws Exception {
 		return service.findAll();
 	}
 	
 	@GetMapping(value ="/{id}")
-	public Person findById(@PathVariable Long id) throws Exception {
+	public PersonVO  findById(@PathVariable Long id) throws Exception {
 		return service.findById(id);
 	}
 	
 	@PostMapping()
-	public Person create(@RequestBody Person person) throws Exception {
+	public PersonVO create(@RequestBody PersonVO  person) throws Exception {
 		return service.create(person);
 	}
 	
+	@PostMapping(value = "/v2")
+	public PersonVOV2  createV2(@RequestBody PersonVOV2  person) throws Exception {
+		return service.createV2(person);
+	}
+	
 	@PutMapping()
-	public Person update(@RequestBody Person person) throws Exception {
+	public PersonVO update(@RequestBody PersonVO  person) throws Exception {
 		return service.update(person);
 	}
 	
