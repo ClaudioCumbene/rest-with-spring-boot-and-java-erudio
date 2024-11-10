@@ -18,7 +18,7 @@ import com.techoidu.data.vo.v1.v2.PersonVOV2;
 import com.techoidu.services.PersonService;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 	
 	@Autowired
