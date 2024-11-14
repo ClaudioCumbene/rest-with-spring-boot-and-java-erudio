@@ -1,5 +1,8 @@
 package com.techoidu.controllers;
 
+
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.techoidu.data.vo.v1.PersonVO;
 import com.techoidu.data.vo.v1.v2.PersonVOV2;
 import com.techoidu.services.PersonService;
+import com.techoidu.util.MediaType;
 
 @RestController
 @RequestMapping("/api/person/v1")
@@ -24,27 +28,30 @@ public class PersonController {
 	@Autowired
 	private PersonService service;
 
-	@GetMapping()
+	@GetMapping(produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public List<PersonVO > findAll() throws Exception {
 		return service.findAll();
 	}
 	
-	@GetMapping(value ="/{id}")
+	@GetMapping(value ="/{id}", produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVO  findById(@PathVariable Long id) throws Exception {
 		return service.findById(id);
 	}
 	
-	@PostMapping()
+	@PostMapping(consumes =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
+				 produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVO create(@RequestBody PersonVO  person) throws Exception {
 		return service.create(person);
 	}
 	
-	@PostMapping(value = "/v2")
+	@PostMapping(value = "/v2", consumes =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+				produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVOV2  createV2(@RequestBody PersonVOV2  person) throws Exception {
 		return service.createV2(person);
 	}
 	
-	@PutMapping()
+	@PutMapping(consumes =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+				produces =  {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVO update(@RequestBody PersonVO  person) throws Exception {
 		return service.update(person);
 	}
