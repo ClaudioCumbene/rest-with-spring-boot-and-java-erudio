@@ -1,46 +1,45 @@
-package com.techoidu.entities;
+package com.techoidu.data.vo.v1;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.hateoas.RepresentationModel;
 
-@Entity
-@Table(name= "books")
-public class Book implements Serializable {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
+
+@JsonPropertyOrder({"id", "author", "launchDate", "price", "title"})
+public class BookVO extends RepresentationModel<BookVO> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	@JsonProperty("id")
+	@Mapping("id")
+	private Long key;
 	private String author;
-	
-	@Column(nullable = false)
 	private Date launchDate;
-	
-	@Column(nullable = false)
 	private Double price;
-	
-	@Column(nullable = false, length= 250)
 	private String title;
 	
-	public Book() {
+	public BookVO() {
 		
-	}	
-
-	public Long getId() {
-		return id;
+	}
+	
+	public Long getKey() {
+		return key;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setKey(Long key) {
+		this.key = key;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getAuthor() {
@@ -67,17 +66,9 @@ public class Book implements Serializable {
 		this.price = price;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(author, id, launchDate, price, title);
+		return Objects.hash(author, key, launchDate, price, title);
 	}
 
 	@Override
@@ -88,10 +79,9 @@ public class Book implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Book other = (Book) obj;
-		return Objects.equals(author, other.author) && Objects.equals(id, other.id)
+		BookVO other = (BookVO) obj;
+		return Objects.equals(author, other.author) && Objects.equals(key, other.key)
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
-
 }
